@@ -1,15 +1,46 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import Clases.MaquinaExpendedora;
+
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        menu();
+
+    }
+
+    public static void menu(){
+        MaquinaExpendedora maquina = new MaquinaExpendedora();
+        boolean salir=false;
+        do {
+            String opcionS=JOptionPane.showInputDialog(null,
+                    """
+                            *********Maquina Expendedora*********
+                            ******** 1. Pedir Golosinas ********
+                            ******* 2. Mostrar Golosinas *******
+                            ******* 3. Reponer Golosinas *******
+                            ******** 4. Apagar máquina *********
+                            ******** Introduce tu opción →
+                            """);
+            if (opcionS==null){
+                return;
+            }
+            try{
+                switch (opcionS){
+                    case "1"->maquina.pedirGolosinas();
+                    case "2" -> JOptionPane.showMessageDialog(null,maquina.mostrarGolosinas().toString());
+                    case "3" -> maquina.rellenarStock();
+                    case "4" -> {
+                        maquina.apagarMaquina();
+                        salir=true;
+                    }
+                    default -> {
+                        JOptionPane.showMessageDialog(null, "Opcion no válida");
+                    }
+                }
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null,"Por favor ");
+            }
+        }while(salir==false);
     }
 }
